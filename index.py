@@ -1,7 +1,8 @@
 from flask import Flask, request
-from rfc3986 import urlparse
+from util import convert
+
+
 from read_meta_data import readMeta
-import urllib
 
 app = Flask(__name__)
 
@@ -11,19 +12,12 @@ def home():
     return "Hello, World!"
 
 
-@app.route('/api')
-def api():
-    with open('data.json', 'r') as f:
-        data = f.read()
-    return data
-
-
-@app.route('/read_web_meta_data')
+@app.route('/api/read_web_meta_data')
 def read_web_meta_data():
     # Get urls from params
     url = request.args.get('url')
     if url is None:
-        return {'error': 'url is required'}
+        return {'error': 'url is missing in params'}, 400
     url = convert(url)
 
     print(url)
@@ -31,11 +25,13 @@ def read_web_meta_data():
     return {'result': result}
 
 
-def convert(url):
-    if url.startswith('http://www.'):
-        return 'http://' + url[len('http://www.'):]
-    if url.startswith('www.'):
-        return 'http://' + url[len('www.'):]
-    if not url.startswith('http://'):
-        return 'http://' + url
-    return url
+@app.errorhandler(404)
+def handle_exception(e):
+    print('ERROR:', e)
+    return {'error': 'Not found'}, 404
+
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    print('ERROR:', e)
+    return {'error': 'something went wrong'}, 500

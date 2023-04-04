@@ -27,11 +27,11 @@ def read_web_meta_data():
 
 @app.errorhandler(404)
 def handle_exception(e):
-    print('ERROR:', e)
+    print('\nERROR:', e)
     return {'error': 'Not found'}, 404
 
 
 @app.errorhandler(Exception)
 def handle_exception(e):
-    print('ERROR:', e)
+    print('\nERROR:', e)
     return {'error': 'something went wrong'}, 500

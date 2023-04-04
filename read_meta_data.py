@@ -5,21 +5,22 @@ from util import tagList
 
 
 def readMeta(url):
-    print('URL :', url)
+    print('\nURL :', url)
     r = requests.get(url)
     soup = BeautifulSoup(r.content, "html.parser",
                          from_encoding="utf-8", )
 
-    title = soup.title.string
+    # Get title string from soup if is is not None
+    title = soup.title.string if soup.title is not None else ''
     print('TITLE IS :', title)
 
     meta = soup.find_all('meta')
+    print('TOTAL META TAGS :', len(meta))
     results = {
         'url': url,
         'title': title,
         'date': datetime.datetime.now().utcnow().isoformat()
     }
-    tags = tagList()
     for tag in meta:
         try:
             if 'name' in tag.attrs.keys() and tag.attrs['name'].strip().lower() in tags:

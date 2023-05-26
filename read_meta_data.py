@@ -21,6 +21,7 @@ def readMeta(url):
         'title': title,
         'date': datetime.datetime.now().utcnow().isoformat()
     }
+    tags = tagList()
     for tag in meta:
         try:
             if 'name' in tag.attrs.keys() and tag.attrs['name'].strip().lower() in tags:

@@ -1,6 +1,8 @@
 from flask import Flask, request
 from util import convert
 from flask_cors import CORS
+from flask import jsonify
+from flask import make_response
 
 
 from read_meta_data import readMeta
@@ -14,6 +16,13 @@ def home():
     return "Hello, World!"
 
 
+@app.route("/api")
+def api():
+    response = make_response(jsonify({"data": "some data"}))
+    response.headers['Cache-Control'] = 'public, max-age=300'
+    return response
+
+
 @app.route('/api/read_web_meta_data')
 def read_web_meta_data():
     # Get urls from params
@@ -24,7 +33,12 @@ def read_web_meta_data():
 
     print(url)
     result = readMeta(url)
-    return {'result': result}
+    response = make_response(jsonify({'result': result}))
+    # Add cache control headers to response. This will cache the response for 30 days
+    response.headers['Cache-Control'] = 'public, max-age=2592000'
+    # Add expires header to response. This will cache the response for 30 days
+    response.headers['Expires'] = '2592000'
+    return response
 
 
 @app.errorhandler(404)

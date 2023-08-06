@@ -6,7 +6,7 @@ from util import tagList
 
 def readMeta(url):
     print('\nURL :', url)
-    r = requests.get(url)
+    r = requests.get(url, verify=False)
     soup = BeautifulSoup(r.content, "html.parser",
                          from_encoding="utf-8", )
 

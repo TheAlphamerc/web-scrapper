@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:site_name">
+  <meta property="og:title">
+  <meta property="og:description">
+  <meta property="og:image">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gray-100 h-screen">
+  <div class="container flex flex-col place-items-center place-content-center gap-8 max-w-[720px] mx-auto h-screen">
+    <div class="border theme-border-default cursor-pointer overflow-hidden min-w-[720px]">
+
+      <!-- { Image } -->
+      <img id="image" alt="banner" class="" class="h-[250px] w-full border-b border-gray-300 object-cover blur-0">
+
+      <div class="grid gap-1 theme-bg-default p-3">
+        <!-- {siteName} -->
+        <p id="siteName" class="text-[0.8rem] uppercase theme-text-headline-1">
+        </p>
+        <!-- {title} -->
+        <h3 id="title" class="truncate font-semibold theme-text-headline-2">
+        </h3>
+        <!-- {{ description }} -->
+        <p id="description" class="line-clamp-2 text-sm theme-text-subtitle-1">
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // console.log("Data", '{{ data | tojson | safe}}');
+      var meta = JSON.parse('{{ data | tojson | safe}}');
+
+      console.log(meta);
+      if (meta['og:description']) {
+        document.getElementById('description').innerHTML = meta['og:description'];
+      }
+      if (meta['og:title']) {
+        document.getElementById('title').innerHTML = meta['og:title'];
+      }
+      if (meta['og:site_name']) {
+        document.getElementById('siteName').innerHTML = meta['og:site_name'];
+      }
+      if (meta['og:image']) {
+        document.getElementById('image').src = meta['og:image'];
+      } else {
+        document.getElementById('image').style.display = 'none';
+      }
+    </script>
+</body>
+
+</html>

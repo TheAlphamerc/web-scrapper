@@ -1,8 +1,9 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from util import convert
 from flask_cors import CORS
 from flask import jsonify
 from flask import make_response
+from html2image import Html2Image
 
 
 from read_meta_data import readMeta
@@ -23,6 +24,29 @@ def api():
     return response
 
 
+@app.route("/api/meta")
+def linkMetaPreview():
+    url = request.args.get('url')
+    if url is None:
+        return {'error': 'url is missing in params'}, 400
+    url = convert(url)
+    json = readMeta(url)
+
+    return render_template("image.html", data=json)
+
+
+@app.route("/api/img")
+def api_image():
+    url = request.args.get('url')
+    if url is None:
+        return {'error': 'url is missing in params'}, 400
+    url = convert(url)
+    hti = Html2Image(temp_path="./tmp")
+    list = hti.screenshot(url=url, size=(720, 454),)
+    print(list)
+    return {'result': 'success', 'data': list}
+
+
 @app.route('/api/read_web_meta_data')
 def read_web_meta_data():
     # Get urls from params
@@ -34,10 +58,64 @@ def read_web_meta_data():
     print(url)
     result = readMeta(url)
     response = make_response(jsonify({'result': result}))
-    # Add cache control headers to response. This will cache the response for 30 days
-    response.headers['Cache-Control'] = 'public, max-age=2592000'
+    # Add cache control headers to response. This will cache the response for 365 days
+    response.headers['Cache-Control'] = 'public, max-age=31536000'
     # Add expires header to response. This will cache the response for 30 days
-    response.headers['Expires'] = '2592000'
+    response.headers['Expires'] = '31536000'
+    return response
+
+
+@app.route('/api/meta/nostra')
+def read_web_meta_data():
+    # Get urls from params
+    url = request.args.get('url')
+    if url is None:
+        return {'error': 'url is missing in params'}, 400
+    url = convert(url)
+
+    print(url)
+    result = readMeta(url)
+    response = make_response(jsonify({'result': result}))
+    # Add cache control headers to response. This will cache the response for 365 days
+    response.headers['Cache-Control'] = 'public, max-age=31536000'
+    # Add expires header to response. This will cache the response for 30 days
+    response.headers['Expires'] = '31536000'
+    return response
+
+
+@app.route('/api/meta/pensil')
+def read_web_meta_data():
+    # Get urls from params
+    url = request.args.get('url')
+    if url is None:
+        return {'error': 'url is missing in params'}, 400
+    url = convert(url)
+
+    print(url)
+    result = readMeta(url)
+    response = make_response(jsonify({'result': result}))
+    # Add cache control headers to response. This will cache the response for 365 days
+    response.headers['Cache-Control'] = 'public, max-age=31536000'
+    # Add expires header to response. This will cache the response for 30 days
+    response.headers['Expires'] = '31536000'
+    return response
+
+
+@app.route('/api/meta/humbl')
+def read_web_meta_data():
+    # Get urls from params
+    url = request.args.get('url')
+    if url is None:
+        return {'error': 'url is missing in params'}, 400
+    url = convert(url)
+
+    print(url)
+    result = readMeta(url)
+    response = make_response(jsonify({'result': result}))
+    # Add cache control headers to response. This will cache the response for 365 days
+    response.headers['Cache-Control'] = 'public, max-age=31536000'
+    # Add expires header to response. This will cache the response for 30 days
+    response.headers['Expires'] = '31536000'
     return response
 
 

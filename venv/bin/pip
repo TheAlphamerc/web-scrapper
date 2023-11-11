@@ -1,4 +1,4 @@
-#!/Users/sonusharma/Desktop/workspace/AI/python-ai-app/venv/bin/python3.11
+#!/Users/sonusharma/Desktop/workspace/AI/web-scrapper/venv/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys

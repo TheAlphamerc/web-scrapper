@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/sonusharma/Desktop/workspace/AI/python-ai-app/venv"
+VIRTUAL_ENV="/Users/sonusharma/Desktop/workspace/AI/web-scrapper/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

@@ -47,8 +47,8 @@ def api_image():
     return {'result': 'success'}
 
 
-@app.route('/api/read_web_meta_data')
-def read_web_meta_data():
+@app.route('/api/read_url_meta')
+def read_url_meta():
     # Get urls from params
     url = request.args.get('url')
     if url is None:

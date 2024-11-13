@@ -4,13 +4,13 @@ Web Scraper is a simple Flask-based API that allows users to retrieve meta data 
 ## How to Use the API
 To use the API, simply make a GET request to the following endpoint:
 
-https://web-scrapper-coral.vercel.app/api/read_web_meta_data?url={website_url}
+https://web-scrapper-coral.vercel.app/api/read_url_meta?url={website_url}
 
 Here, {website_url} refers to the URL of the website whose metadata you want to retrieve. The API returns a JSON object containing the website's title, description, and image etc.
 
 For example, to retrieve the metadata for https://www.theverge.com, you would make the following request:
 
-https://web-scrapper-coral.vercel.app/api/read_web_meta_data?url=https://www.theverge.com
+https://web-scrapper-coral.vercel.app/api/read_url_meta?url=https://www.theverge.com
 
 Project Setup
 To set up the project, follow these steps:
@@ -48,7 +48,7 @@ export FLASK_ENV=development
 python app.py
 ```
 
-The API will be accessible at http://127.0.0.1:5000/api/read_web_meta_data?url={website_url}.
+The API will be accessible at http://127.0.0.1:5000/api/read_url_meta?url={website_url}.
 
 Contributing
 Contributions to the project are welcome. If you'd like to contribute, please create a pull request with your changes.
